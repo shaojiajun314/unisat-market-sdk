@@ -182,7 +182,7 @@ def retry(func):
 					continue
 				if e.status_code == 403:
 					print('challenge')
-					print(arg[0].challenge_cloudflare())
+					arg[0].challenge_cloudflare()
 					continue
 				raise
 
@@ -318,7 +318,7 @@ class SDK():
 				"sort":{
 					"unitPrice":1
 				},
-				"start":0,
+				"start":s,
 				"limit":l
 			}
 		)
@@ -400,7 +400,7 @@ if __name__ == '__main__':
 	address =os.getenv('address') or None
 	print(address)
 
-	
+
 	sdk = SDK(
 		private_key,
 		address=address,
@@ -409,10 +409,13 @@ if __name__ == '__main__':
 	print(sdk.brc20_types())
 	print(sdk.brc20_types('shi'))
 	print('*' * 20)
-	for i in sdk.auction_list(sdk.brc20_types()[0]):
-		print(i)
-	i = next(sdk.auction_list('0shi'))
-	print('*' * 20)
+	for i in sdk.auction_list('ordi'):
+		if i.inscriptionNumber == 5758058:
+			print(i)
+			break
+		print('not')
+	# i = next(sdk.auction_list('0shi'))
+	# print('*' * 20)
 	sdk.bid(i)
 
 
